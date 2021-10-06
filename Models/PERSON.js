@@ -7,7 +7,8 @@ const schema=mongoose.Schema
 const contactschema=new schema({
     name:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     age:{
         type:Number
@@ -17,4 +18,4 @@ const contactschema=new schema({
     }
    
 })
- module.exports=Person=mongoose.model('contactlist',contactschema)
+ module.exports=Person=mongoose.model('personlist',contactschema)

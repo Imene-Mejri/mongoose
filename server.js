@@ -4,7 +4,7 @@ const connectdb=require('./Config/Connectdb')
 connectdb()
   const Person=require('./Models/PERSON') 
 
-//CRUD
+ //CRUD
 //create a new person 
 
 const addSavePerson = new Person({
@@ -23,10 +23,11 @@ const addSavePerson = new Person({
         console.log(error)
     }
 })   
-//createmany person
-const addmanyPerson = new Person([{
+/* {*************************************************************************************} */
 
-    name: "Sarra",
+//create many person
+ Person.create([
+    {name: "Sarra",
     age: 26,
     favoriteFoods: ['lcouscous','soupe','crepe'],
   },
@@ -38,12 +39,12 @@ const addmanyPerson = new Person([{
   {
     name: "Yassine",
     age: 22,
-    favoriteFoods: ['souchi','Fruits','crepe','Vegetables'],
+    favoriteFoods: ['souchi','Fruits','crepe','Vegetables','pizza'],
   },
   {
     name: "koussay",
     age: 2,
-    favoriteFoods: ['milk','soupe'],
+    favoriteFoods: ['milk','soupe','moussli','burgger'],
   },
   {
     name: "kodes",
@@ -53,20 +54,21 @@ const addmanyPerson = new Person([{
   {
     name: "kamel",
     age: 40,
-    favoriteFoods: ['mossli'],
-  }]);
-  //the save function
-  addmanyPerson.save(()=>{
+    favoriteFoods: ['mossli','pizza'],
+  }],(err,data)=>{
     try{
         console.log('the new data has ben aded successfely')
 
     }catch(error){
         console.log(error)
     }
-}) 
+  })
+
+/* {*************************************************************************************} */
+ 
 //READ 
 //find
-Person.find({name:'Imene'},(err,data)=>{
+Person.find({name:'kamel'},(err,data)=>{
 
     try{
         console.log(data);
@@ -74,50 +76,67 @@ Person.find({name:'Imene'},(err,data)=>{
         console.log('error')
     }
 })
+/* {*************************************************************************************} */
 //findOne
-Person.findOne({favoriteFoods:'moussli'},(err,data)=>{
-
+Person.findOne({favoriteFoods:{$in:['burgger']}},(err,data)=>{
+   
     try{
         console.log(data);
     }catch(error){
         console.log('error')
     }
 })
+
+/* {*************************************************************************************} */
 //findbyid
-Person.findById({_id:'615cde0d9e7fb33d8eb7e4c6'},(err,data)=>{
+/Person.findById('615d8a70bd2c462716a232b9',(err,data)=>{
 
     try{
         console.log(data);
     }catch(error){
         console.log('error')
     }
-})
+}) 
+/* {*************************************************************************************} */
 //findOneandUpdate
-Person.findOneAndUpdate({name:'Imene'},
+Person.findOneAndUpdate({name:{$set:'Imene'}},
 { favoriteFoods:('hamburger')},(err,data)=>{
 
     try{
         console.log(data);
     }catch(error){
-        console.log('error')
+        console.log('error IN THIS CODE HHHHjjjjkkkk')
     }
-})
+}) 
+/* {*************************************************************************************} */
 //Perfor
 //deletebyid
-Person.findByIdAndDelete({_id:'615cde1043a3e9666b5f1091'},(err,data)=>{
+ Person.findOneAndRemove({name:'Sarra'},(err,data)=>{
 
     try{
-        console.log('the user has benn deleted');
+        console.log('the user has benn deleted succsfely');
     }catch(error){
         console.log('error')
     }
-})
+}) 
+/* {*************************************************************************************} */
 //delete with remove
-Person.remove({name:'imene'},(err,data)=>{
+  
+
+ Person.remove({name:'Imene'},(err,data)=>{
 
     try{
         console.log('the user has benn deleted');
     }catch(error){
         console.log('error')
     }
-})
+})  
+ //find withfavoriteFoods
+ Person.find({favoriteFoods:{$in:['Pizza']}},(err,data)=>{
+
+    try{
+        console.log('the user has benn foundedd');
+    }catch(error){
+        console.log('error')
+    }
+})  
